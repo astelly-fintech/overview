@@ -45,3 +45,4 @@ The design, the decisions and the testing are the founder's. The code is written
 |---|---|
 | 12 November 2026 | Platform designed as 20 modules in eight layers. First scenario trace: 23 cases, 29 faults found and fixed |
 | 13 November 2026 | Second scenario trace: 25 cases, 25 faults found and fixed. Two build-readiness reads of layers 1 to 3 |
+| 13 November 2026 | Code repository set up: TypeScript in strict mode, tests against a real database, and an automatic check that fails the build if a module breaks the layer rules |
