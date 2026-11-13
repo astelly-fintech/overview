@@ -1,0 +1,47 @@
+# Astelly platform: overview
+
+Astelly is building a marketplace where a small business sells an invoice it is owed, and investors buy it whole or in slices and can sell those slices on. This repository describes how the software is designed and tested. The code itself is in a private repository.
+
+**Status, 13 November 2026.** The design is written and reviewed, and the build of the three lowest layers is starting. Nothing is live. Astelly is not yet incorporated or authorised, and nothing here is an offer or an invitation to invest.
+
+## How it is built
+
+One TypeScript program on one PostgreSQL database, divided into 20 modules in eight layers. A module may call the modules below it and never those above; a lower module tells a higher one that something happened only by announcing an event.
+
+| Layer | Modules | Job |
+|---|---|---|
+| 1 Foundation | Configuration, Event log, Parties | Settings and switches, the audit trail, who exists and what they may do |
+| 2 Books | Registry, Ledger, Settlement | Who owns what, every movement of pounds, and the one place either may change |
+| 3 Sums | Valuation, Fees | A value for each asset each day, and every fee |
+| 4 Asset classes | Invoices | Everything specific to invoices; later asset classes take the same form |
+| 5 Markets | Listings, Order book | The first sale of an asset, and resale |
+| 6 Schematics | Schematic engine | Standing instructions that buy for the investors who follow them |
+| 7 Servicing | Distributions, Payments, Reconciliation, Checks, Document store, Notifications, Reporting | Paying owners, instructing the bank, matching every bank movement, and the checks and records around a sale |
+| 8 Interface | API | The only way in, used by Astelly's own website with no shortcuts |
+
+Four rules shape the rest:
+
+- **Ownership is counted in whole units and money in whole pence.** One unit of an invoice is one penny of its face value.
+- **Every movement of pounds is recorded twice**, so the books always balance, and the database refuses a posting that does not.
+- **Units and pounds change in one step or not at all.** Only one module may change the ownership records or the ledger, so a buyer cannot have paid and own nothing.
+- **The software never moves money.** It records what is owed and produces payment instructions; an independent trust company controls the bank accounts, and every bank movement is matched back to the ledger each day.
+
+## How it is tested before any code is written
+
+The design is one note per module: what the module owns, its commands, its queries, its events and its rules. It was tested in two ways before the build began.
+
+- **Scenario traces.** 48 cases were walked step by step through every module, carrying the pounds and units through to the end: an invoice part-sold, part-paid and then written off; a disputed invoice bought back in instalments while its debtor also pays; one bank transfer covering five different things. The two traces found 54 faults, almost all a rule in one module that a general rule in another quietly broke. Each was decided and fixed in the design. In the final 120-day case the books balanced at every checkpoint.
+- **Build-readiness reads.** A reader given only the notes for the three lowest layers wrote the database tables and every command's inputs and outputs, and listed each point where they had to guess. The first read found 22 guesses that would change a table or a command; the second found six. All are now settled.
+
+The 48 traced cases become the automated tests the code has to pass.
+
+## How AI is used
+
+The design, the decisions and the testing are the founder's. The code is written with AI coding tools, and every change is checked against the module notes and the tests. Commits in the private repository carry the tool's co-author line.
+
+## Progress
+
+| Date | What |
+|---|---|
+| 12 November 2026 | Platform designed as 20 modules in eight layers. First scenario trace: 23 cases, 29 faults found and fixed |
+| 13 November 2026 | Second scenario trace: 25 cases, 25 faults found and fixed. Two build-readiness reads of layers 1 to 3 |
