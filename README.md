@@ -50,3 +50,4 @@ The design, the decisions and the testing are the founder's. The code is written
 | 15 November 2026 | Foundation layer built: Configuration, Event log and Parties, with the shared sums for pence and a one-off setup command. 83 automated tests |
 | 16 November 2026 | Foundation layer re-tested by a second reader who saw only the design: 297 tests written without sight of the code, and the hand-worked figures of every traced case recomputed independently |
 | 17 November 2026 | Books layer built: ownership records, the double-entry ledger, and the one module that changes either, all in one step or not at all. 503 automated tests, 399 of them written without sight of the code |
+| 17 November 2026 | Independent review of the code of layers 1 and 2, its findings fixed. The books' checks reworked so a settlement costs the same at a million steps of history as at ten thousand, with the full proof run nightly. 513 automated tests |
