@@ -2,7 +2,7 @@
 
 Astelly is building a marketplace where a small business sells an invoice it is owed, and investors buy it whole or in slices and can sell those slices on. This repository describes how the software is designed and tested. The code itself is in a private repository.
 
-**Status, 15 November 2026.** The design is written and reviewed. The foundation layer is built and tested, and the books layer is next. Nothing is live. Astelly is not yet incorporated or authorised, and nothing here is an offer or an invitation to invest.
+**Status, 17 November 2026.** The design is written and reviewed. The foundation and books layers are built and tested, and the sums layer is next. Nothing is live. Astelly is not yet incorporated or authorised, and nothing here is an offer or an invitation to invest.
 
 ## How it is built
 
@@ -48,3 +48,5 @@ The design, the decisions and the testing are the founder's. The code is written
 | 13 November 2026 | Code repository set up: TypeScript in strict mode, tests against a real database, and an automatic check that fails the build if a module breaks the layer rules |
 | 15 November 2026 | Database tables and command signatures for layers 1 to 3 written, then read against the design by a fresh reviewer; its 20 findings fixed or decided. The database itself now refuses edits to permanent records, backdated entries and postings that do not balance |
 | 15 November 2026 | Foundation layer built: Configuration, Event log and Parties, with the shared sums for pence and a one-off setup command. 83 automated tests |
+| 16 November 2026 | Foundation layer re-tested by a second reader who saw only the design: 297 tests written without sight of the code, and the hand-worked figures of every traced case recomputed independently |
+| 17 November 2026 | Books layer built: ownership records, the double-entry ledger, and the one module that changes either, all in one step or not at all. 503 automated tests, 399 of them written without sight of the code |
